@@ -107,6 +107,7 @@ KWin.Switcher {
                     height: tabBox.screenGeometry.height / 2
                     scale: PathView.scale
                     z: PathView.z
+                    opacity: Math.min(1, z/20)  // So items appear and dissapear from the back more naturally
 
                     KWin.ThumbnailItem {
                         id: thumbnail
@@ -133,7 +134,7 @@ KWin.Switcher {
                     transform: thumbnailView.currentItem.transform
                     scale: thumbnailView.currentItem.scale
                     z: thumbnailView.currentItem.z - 1
-                    opacity: Math.max(0, (thumbnailView.currentItem.z - 90) / 10)
+                    opacity: Math.max(0, (thumbnailView.currentItem.z - 80) / 20)
                 }
 
                 Keys.onUpPressed: decrementCurrentIndex()
