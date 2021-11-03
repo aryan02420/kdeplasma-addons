@@ -13,7 +13,8 @@ var formats = [
     "rgb",
     "rgba",
     "Qt.rgba",
-    "LaTeX"
+    "LaTeX",
+    "Blender"
 ]
 
 function formatColor(color, format) {
@@ -40,6 +41,8 @@ function formatColor(color, format) {
         return "Qt.rgba(" + [roundComponent(color.r), roundComponent(color.g), roundComponent(color.b)].join(", ") + ", 1)"
     case "LaTeX":
         return "\\definecolor{ColorName}{rgb}{" + [roundComponent(color.r), roundComponent(color.g), roundComponent(color.b)].join(",") + "}"
+    case "Blender":
+        return `[${roundComponent(color.r, 1000000)}, ${roundComponent(color.g, 1000000)}, ${roundComponent(color.b, 1000000)}, 1.000000]`
     }
 }
 
@@ -47,8 +50,8 @@ function padHex(n) {
     return ("0" + n).substr(-2, 2) // fancy
 }
 
-function roundComponent(n) {
-    return Math.round(n * 100) / 100
+function roundComponent(n, precision = 100) {
+    return Math.round(n * precision) / precision
 }
 
 function menuForColor(color) {
@@ -64,6 +67,7 @@ function menuForColor(color) {
         {text: formatColor(color, "RRGGBB")},
         {separator: true},
         {text: formatColor(color, "Qt.rgba")},
-        {text: formatColor(color, "LaTeX")}
+        {text: formatColor(color, "LaTeX")},
+        {text: formatColor(color, "Blender")}
     ]
 }
